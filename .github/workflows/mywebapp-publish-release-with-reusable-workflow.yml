@@ -19,7 +19,7 @@ jobs:
 
   deploy-to-dev:
     name: Deploy to DEV environment
-    uses: mickeygoussetorg/github-actions-presentation/.github/workflows/mywebapp-reusable-workflow-deploy-web-app.yml@mickeygousset/release-demo
+    uses: exampleorg/github-actions-presentation/.github/workflows/mywebapp-reusable-workflow-deploy-web-app.yml@mickeygousset/release-demo
     with:
       runs-on: ubuntu-latest
       artifact-to-deploy: mywebapp
@@ -36,23 +36,23 @@ jobs:
       runs-on: ubuntu-latest
       artifact-to-deploy: mywebapp
       env-name: STAGING
-      env-url: https://gapdemostaging.azurewebsites.net
-      app-name: gapdemostaging
       version-number: ${{github.event.release.tag_name}}
     secrets: inherit
     
   deploy-to-prod:
     name: Deploy to PROD environment
-    needs: 
+   
+    needs: past test and build
+    
       - deploy-to-dev
       - deploy-to-staging
-    uses: mickeygoussetorg/github-actions-presentation/.github/workflows/mywebapp-reusable-workflow-deploy-web-app.yml@mickeygousset/release-demo
+    uses: exampleorg/github-actions-presentation/.github/workflows/mywebapp-reusable-workflow-deploy-web-app.yml@example/release-demo
     with:
       runs-on: ubuntu-latest
       artifact-to-deploy: mywebapp
       env-name: PROD
       env-url: https://gapdemoprod.azurewebsites.net
-      app-name: gapdemoprod
+      app-name: prod
       version-number: ${{github.event.release.tag_name}}
     secrets: inherit
       
